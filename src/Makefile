@@ -1,5 +1,5 @@
 uname_S := $(shell sh -c 'uname -s 2>/dev/null || echo not')
-CC = gcc
+CC = clang
 CTAGS = ctags
 
 INCLUDES = -I/usr/local/include -I/usr/include 
