@@ -17,6 +17,13 @@ loglevel_map_t loglevel_map[LOG_TRACE + 1] = {
 	{LOG_TRACE, "trace"},
 };
 
+char* log_level_str(loglevel_t l)
+{
+	if (l > LOG_TRACE) return "N/A";
+	return loglevel_map[l].name;
+};
+
+
 char* timestr()
 {
 	static char now_str[128]={0};
@@ -29,7 +36,7 @@ char* timestr()
 	return now_str;
 }
 
-int screen_print(const char *color, FILE *fp, const char *format, ...)  
+int screen_print(FILE *fp, const char *format, ...)  
 {
 	va_list args;
 	va_start(args, format);

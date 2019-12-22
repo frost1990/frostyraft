@@ -35,10 +35,6 @@
 #define COLOR_SET(color) CONCAT("\033[", color)
 #define COLOR_DISABLE "\033[0m"
 
-int screen_print(const char *color, FILE *fp, const char *format, ...); 
-int record(const char *format, ...);
-char* timestr();
-
 typedef enum {
 	LOG_EMERG = 0,
 	LOG_ALERT,
@@ -53,20 +49,24 @@ typedef enum {
 
 typedef struct {
 	loglevel_t level;
-	const char *name;
+	char *name;
 } loglevel_map_t;
 
+int screen_print(FILE *fp, const char *format, ...); 
+int record(const char *format, ...);
+char* log_level_str(loglevel_t l);
+char* timestr();
 
 #define SCREEN(color, fp, format, vargs...) do { \
 	char fmt[SCREEN_LOGSIZE] = {0}; \
 	snprintf(fmt, SCREEN_LOGSIZE - 1, "%s%s %s %s:%d %s%s\n",  COLOR_SET(color), timestr(), __FILE__, __func__, __LINE__, format, COLOR_DISABLE);\
-	screen_print(color, fp, fmt, ##vargs); \
+	screen_print(fp, fmt, ##vargs); \
 } while (0);
 
 #define info(format, vargs...) do { \
 	if (LOG_INFO < LOG_INFO) break; \
 	char logfmt[LOG_MAX_LINE] = {0};\
-	snprintf(logfmt, LOG_MAX_LINE- 1, "%s %s %s:%d %d %s\n", timestr(), __FILE__, __func__, __LINE__, gettid(), format);\
+	snprintf(logfmt, LOG_MAX_LINE - 1, "%s %s %s %s:%d %d %s\n", log_level_str(LOG_INFO), timestr(), __FILE__, __func__, __LINE__, gettid(), format);\
 	record(logfmt, ##vargs); \
 } while (0);
 
