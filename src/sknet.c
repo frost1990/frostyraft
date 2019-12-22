@@ -10,7 +10,7 @@
 #include <string.h>
 
 #include "sknet.h"
-#include "screen.h"
+#include "logger.h"
 
 /* Only works in block mode */
 int sk_set_rcv_timeout(int fd, int tv_sec, int tv_usec)
