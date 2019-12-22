@@ -49,7 +49,7 @@ typedef enum {
 
 typedef struct {
 	loglevel_t level;
-	char *name;
+	char name[16];
 } loglevel_map_t;
 
 int screen_print(FILE *fp, const char *format, ...); 

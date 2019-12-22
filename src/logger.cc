@@ -19,7 +19,7 @@ loglevel_map_t loglevel_map[LOG_TRACE + 1] = {
 
 char* log_level_str(loglevel_t l)
 {
-	if (l > LOG_TRACE) return "N/A";
+	if (l > LOG_TRACE) return loglevel_map[LOG_TRACE].name;
 	return loglevel_map[l].name;
 };
 

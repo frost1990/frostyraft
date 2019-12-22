@@ -7,7 +7,7 @@ LIBS = -L/usr/local/lib  -L/usr/local/lib
 ifeq ($(uname_S),Linux)
 	LINK = -lrt -lm -lc
 endif
-CFLAGS = -g -std=gnu99 -Wall -fno-strict-aliasing  -c $(INCLUDES) 
+CFLAGS = -g -Wall -fno-strict-aliasing  -c $(INCLUDES) 
 OFLAGS = $(LIBS) $(LINK)
 
 SRCDIR = .
