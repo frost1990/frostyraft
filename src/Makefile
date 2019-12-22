@@ -35,6 +35,6 @@ $(APP) : $(OBJS)
 	$(CC) $(CFLAGS) -o $@ $<
 
 clean :
-	rm -Rf *.o core.*
+	rm -Rf *.o core.* frostyraft
 install:
 	mkdir -p $(INSTALL_PATH); install $(TARGET) $(INSTALL_PATH)
