@@ -4,6 +4,6 @@
 
 int main(int argc, char** argv) 
 {
-	SCREEN(SCREEN_GREEN, stdout, "Start frostyraft now\n");
+	SCREEN(SCREEN_GREEN, stdout, "start frostyraft now");
 	return 0;
 }

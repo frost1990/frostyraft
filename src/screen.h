@@ -3,6 +3,9 @@
 
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+
+#define SCREEN_LOGSIZE 2048
 
 /* Font color */
 #define SCREEN_BLACK 			"30m"
@@ -30,12 +33,11 @@
 #define COLOR_DISABLE "\033[0m"
 
 int screen_print(const char *color, FILE *fp, const char *format, ...); 
+char* timestr();
 
 #define SCREEN(color, fp, format, vargs...) do { \
-	char fmt[2048] = {0}; \
-	strncat(fmt, COLOR_SET(color), 2048 - strlen(fmt)); \
-	strncat(fmt, format, 2048 - strlen(fmt)); \
-	strncat(fmt, COLOR_DISABLE, 2048 - strlen(fmt)); \
+	char fmt[SCREEN_LOGSIZE] = {0}; \
+	snprintf(fmt, SCREEN_LOGSIZE - 1, "%s%s %s %s:%d] %s%s\n",  COLOR_SET(color), timestr(), __FILE__, __func__,  __LINE__, format, COLOR_DISABLE);\
 	screen_print(color, fp, fmt, ##vargs); \
 } while (0);
 
