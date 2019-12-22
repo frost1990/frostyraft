@@ -374,3 +374,27 @@ int sk_bind_listen(int listen_fd, int port, int backlog)
 
 	return ret;
 }
+
+int sk_get_local_ipv4(const char *eth_inf, char *ipv4) 
+{
+	struct sockaddr_in sin;
+	struct ifreq ifr;
+
+	int sd = socket(AF_INET, SOCK_DGRAM, 0);
+	if (sd == -1) {
+		SCREEN(SCREEN_RED, stderr, "socket(2): %s\n", strerror(errno));
+		return -1;
+	}
+	strncpy(ifr.ifr_name, eth_inf, IFNAMSIZ);
+	ifr.ifr_name[IFNAMSIZ - 1] = 0;
+	if (ioctl(sd, SIOCGIFADDR, &ifr) < 0) {
+		SCREEN(SCREEN_RED, stderr, "ioctl(2): %s\n", strerror(errno));
+		close(sd);
+		return -1;
+	}
+
+	memcpy(&sin, &ifr.ifr_addr, sizeof(sin));
+	snprintf(ipv4, 16, "%s", inet_ntoa(sin.sin_addr));
+	close(sd);
+	return 0;
+}

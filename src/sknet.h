@@ -3,6 +3,8 @@
 
 #include <unistd.h>
 #include <stdio.h>
+#include <net/if.h>  
+#include <sys/ioctl.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
 #include <netinet/tcp.h> /* TCP_NODELAY */
@@ -66,5 +68,7 @@ void sk_ipv4_tostr(uint32_t ip, char *ipstr, size_t ipstr_len);
 uint32_t sk_str_to_ipv4(const char *ipstr);
 
 int sk_bind_listen(int listen_fd, int port, int backlog); 
+
+int sk_get_local_ipv4(const char *eth_inf, char *ipv4); 
 
 #endif 
