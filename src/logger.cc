@@ -21,7 +21,7 @@ char* log_level_str(loglevel_t l)
 {
 	if (l > LOG_TRACE) return loglevel_map[LOG_TRACE].name;
 	return loglevel_map[l].name;
-};
+}
 
 
 char* timestr()
