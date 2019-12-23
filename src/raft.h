@@ -1,6 +1,8 @@
 #ifndef _RAFT_H_
 #define _RAFT_H_
 
+#include<stdint.h>
+
 /* Definition for a raft endpoint */
 typedef struct raft {
 	uint64_t id;
