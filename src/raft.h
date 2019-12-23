@@ -3,6 +3,7 @@
 
 /* Definition for a raft endpoint */
 typedef struct raft {
+	uint64_t id;
 	char ifname[16];
 	char ipv4[16];
 	char uuid[37];
