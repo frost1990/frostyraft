@@ -52,29 +52,29 @@ typedef struct {
 	char name[16];
 } loglevel_map_t;
 
-int screen_print(FILE *fp, const char *format, ...); 
 int record(const char *format, ...);
+int record(FILE *fp, const char *format, ...); 
 char* log_level_str(loglevel_t l);
 char* timestr();
 
 #define SCREEN(color, fp, format, vargs...) do { \
 	char fmt[SCREEN_LOGSIZE] = {0}; \
 	snprintf(fmt, SCREEN_LOGSIZE - 1, "%s%s %s %s:%d %s%s\n",  COLOR_SET(color), timestr(), __FILE__, __func__, __LINE__, format, COLOR_DISABLE);\
-	screen_print(fp, fmt, ##vargs); \
+	record(fp, fmt, ##vargs); \
 } while (0);
 
 #define info(format, vargs...) do { \
 	if (LOG_INFO < LOG_INFO) break; \
 	char logfmt[LOG_MAX_LINE] = {0};\
 	snprintf(logfmt, LOG_MAX_LINE - 1, "%s %s %s %s:%d %d %s\n", log_level_str(LOG_INFO), timestr(), __FILE__, __func__, __LINE__, gettid(), format);\
-	record(logfmt, ##vargs); \
+	record(stdout, logfmt, ##vargs); \
 } while (0);
 
 #define error(format, vargs...) do { \
 	if (LOG_ERROR < LOG_INFO) break; \
 	char logfmt[LOG_MAX_LINE] = {0};\
 	snprintf(logfmt, LOG_MAX_LINE - 1, "%s %s %s %s:%d %d %s\n", log_level_str(LOG_ERROR), timestr(), __FILE__, __func__, __LINE__, gettid(), format);\
-	record(logfmt, ##vargs); \
+	record(stderr, logfmt, ##vargs); \
 } while (0);
 
 #endif

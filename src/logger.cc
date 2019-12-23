@@ -36,7 +36,7 @@ char* timestr()
 	return now_str;
 }
 
-int screen_print(FILE *fp, const char *format, ...)  
+int record(FILE *fp, const char *format, ...)  
 {
 	va_list args;
 	va_start(args, format);
@@ -45,11 +45,3 @@ int screen_print(FILE *fp, const char *format, ...)
 	return ret;
 }
 
-int record(const char *format, ...) 
-{
-	va_list args;
-	va_start(args, format);
-	int ret = vfprintf(stdout, format, args);
-	va_end(args);
-	return ret;
-}
