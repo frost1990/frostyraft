@@ -71,7 +71,7 @@ char* timestr();
 } while (0);
 
 #define error(format, vargs...) do { \
-	if (LOG_ERROR < LOG_INFO) break; \
+	if (LOG_ERROR > LOG_INFO) break; \
 	char logfmt[LOG_MAX_LINE] = {0};\
 	snprintf(logfmt, LOG_MAX_LINE - 1, "%s %s %s %s:%d %d %s\n", log_level_str(LOG_ERROR), timestr(), __FILE__, __func__, __LINE__, gettid(), format);\
 	record(stderr, logfmt, ##vargs); \
